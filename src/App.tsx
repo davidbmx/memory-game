@@ -42,6 +42,14 @@ function App() {
     }
   }, [arraySelected, selectedItems]);
 
+  useEffect(() => {
+    if (foundedItems.length === 6) {
+      setFoundedItems([]);
+      alert('You win!');
+      createBoard();
+    }
+  }, [foundedItems]);
+
   return (
     <div className="container-board">
       {

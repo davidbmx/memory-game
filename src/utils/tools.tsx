@@ -14,7 +14,7 @@ export function getUniqueRandom(array: IItem[], selected: string[]): IItem {
   return itemRandom;
 }
 
-export function generateMatrix(n: number, images: []): IItem[][] {
+export function generateMatrix(n: number, images: string[]): IItem[][] {
   const array: IItem[] = Array.from({ length: n }, (_, index) => ({id: uuid.v4(), image: images[index]}));
   const matrix: IItem[][] = [];
   let itemsSelected: string[] = [];
