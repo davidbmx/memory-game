@@ -6,9 +6,10 @@ export const getImages = async (randomCategory: string, numImages: number) => {
         `${baseUrlApi}/search?query=${randomCategory}&per_page=${numImages}`,
         {
             headers: {
-            Authorization: token || '',
+                Authorization: token || '',
             }
         }
-    ).then(res => res.json())
+    )
+    .then(res => res.json())
     .then((data) => data.photos.map((item: any) => item.src.medium));
 }

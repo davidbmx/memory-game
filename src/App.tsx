@@ -27,12 +27,6 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (arraySelected.length > 2) {
-      setTimeout(() => {
-        setSelectedItems({});
-      }, 600);
-    }
-
     if (arraySelected.length === 2) {
       const values = Object.values(selectedItems);
       if (values[0].id === values[1].id) {
