@@ -1,6 +1,6 @@
 # Memory Game
 
-This project is created for play my kids
+this project was created for my children to play
 
 ## Available Scripts
 
