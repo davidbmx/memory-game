@@ -3,3 +3,8 @@ export interface IItem {
   image: string;
   uniqueId?: string;
 }
+
+export interface ICategory {
+  name: string;
+  page: number;
+}

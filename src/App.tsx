@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import { RowComponent } from './components';
-import { IItem } from './interfaces';
+import { ICategory, IItem } from './interfaces';
 import { generateMatrix, randomFromArray, getImages } from './utils';
+import { categoriesData } from './utils/categoriesData';
 
 function App() {
   const [board, setBoard] = useState<IItem[][]>([]);
   const [selectedItems, setSelectedItems] = useState<Record<string, IItem>>({});
   const [foundedItems, setFoundedItems] = useState<string[]>([]);
+  const [currentImages, setCurrentImages] = useState<Record<keyof typeof categoriesData, ICategory>>(categoriesData);
   const arraySelected = Object.keys(selectedItems);
 
   const onSelectedItems = (selected: IItem): void => {
@@ -15,10 +17,16 @@ function App() {
   };
 
   const createBoard = (): void => {
-    const categories = ['animals', 'food', 'nature', 'objects', 'sports', 'transport', 'superhero'];
-    const randomCategory = randomFromArray(categories);
-    getImages(randomCategory, 6).then((images) => {
+    const randomCategory = randomFromArray(Object.values(currentImages));
+    getImages(randomCategory, 6).then(({images, nextPage}) => {
       setBoard(generateMatrix(6, images));
+      setCurrentImages(im => ({
+        ...im,
+        [randomCategory.name]: {
+          ...im[randomCategory.name],
+          page: nextPage ? im[randomCategory.name].page + 1 : 1,
+        }
+      }));
     });
   };
 
@@ -48,7 +56,7 @@ function App() {
       alert('You win!');
       createBoard();
     }
-  }, [foundedItems]);
+  }, [foundedItems, createBoard]);
 
   return (
     <div className="container-board">
